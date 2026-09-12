@@ -310,44 +310,21 @@
   .bp-main{ padding: clamp(28px, 7vw, 40px) clamp(22px, 6vw, 40px) clamp(20px, 5vw, 24px); }
 
   .bp-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
     margin-bottom: clamp(18px, 5vw, 24px);
-  }
-  .bp-airline{
-    font-family: 'Parisienne', cursive;
-    font-size: clamp(19px, 5vw, 22px);
-    color: var(--ink);
+    padding-bottom: clamp(12px, 3vw, 16px);
+    border-bottom: 1px dashed var(--paper-edge);
   }
   .bp-type{
     font-size: 11px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-soft);
   }
 
-  .bp-route{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: clamp(20px, 5vw, 26px);
-  }
-  .bp-code{
-    font-family: 'EB Garamond', Georgia, serif;
-    font-weight: 600;
-    font-size: clamp(22px, 6.5vw, 28px);
-    letter-spacing: 0.04em;
-    color: var(--ink);
-  }
-  .bp-dest{ color: var(--wax); }
-  .bp-plane{
-    font-size: 18px;
-    color: var(--gold);
-  }
-
   .bp-field{ display: flex; flex-direction: column; gap: 4px; }
   .bp-field-wide{ margin-bottom: clamp(16px, 4vw, 20px); }
+  .bp-field-right{ align-items: flex-end; text-align: right; }
+  .bp-row-route{ margin-bottom: clamp(20px, 5vw, 26px); }
   .bp-label{
     font-size: 10.5px;
     letter-spacing: 0.1em;
@@ -437,27 +414,25 @@
       <article class="boarding-pass">
         <div class="bp-main">
           <div class="bp-header">
-            <span class="bp-airline">N&amp;K Airways</span>
             <span class="bp-type">Cartão de Embarque</span>
           </div>
-          <div class="bp-route">
-            <span class="bp-code">CASA</span>
-            <span class="bp-plane">&#9992;</span>
-            <span class="bp-code bp-dest">???</span>
+          <div class="bp-row bp-row-route">
+            <div class="bp-field">
+              <span class="bp-label">Partida</span>
+              <span class="bp-value">São Paulo &ndash; Congonhas (CGH)</span>
+            </div>
+            <div class="bp-field bp-field-right">
+              <span class="bp-label">Destino</span>
+              <span class="bp-value">Local Incerto<br>e Não Sabido</span>
+            </div>
           </div>
           <div class="bp-field bp-field-wide">
             <span class="bp-label">Passageiro</span>
             <span class="bp-value">Karoline Mendes Vieira Fernandes</span>
           </div>
-          <div class="bp-row">
-            <div class="bp-field">
-              <span class="bp-label">Destino</span>
-              <span class="bp-value">Local Incerto<br>e Não Sabido</span>
-            </div>
-            <div class="bp-field">
-              <span class="bp-label">Data</span>
-              <span class="bp-value">Novembro</span>
-            </div>
+          <div class="bp-field">
+            <span class="bp-label">Data</span>
+            <span class="bp-value">18 de Novembro</span>
           </div>
         </div>
         <div class="bp-stub">
