@@ -217,14 +217,16 @@
   .seal:active{ transform: translate(-50%, -50%) scale(0.94); }
 
   .seal-inner{
-    font-family: 'Parisienne', cursive;
-    font-size: clamp(19px, 5.4vw, 24px);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(20px, 5.6vw, 25px);
     color: #f3e3c9;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.03em;
     text-shadow: 0 1px 1px rgba(0,0,0,0.3);
     pointer-events: none;
   }
-  .seal-inner .amp{ font-size: 0.7em; opacity: 0.85; margin: 0 1px; }
+  .seal-inner .dot{ font-size: 0.55em; opacity: 0.8; margin: 0 1px; vertical-align: middle; }
 
   /* ---------- Opening sequence ---------- */
   .stage.unsealing .seal{
@@ -346,7 +348,7 @@
           <span class="env-label from">De: Nicholas</span>
         </div>
         <button class="seal" id="seal" aria-label="Abrir a carta">
-          <span class="seal-inner">K<span class="amp">&amp;</span>M</span>
+          <span class="seal-inner">K<span class="dot">&middot;</span>M</span>
         </button>
       </div>
       <p class="hint">toque no selo para abrir</p>
