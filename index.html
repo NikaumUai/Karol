@@ -242,44 +242,30 @@
   }
 
   .page-card{
-    position: relative;
+    width: 100%;
     background: var(--paper);
     border: 1px solid var(--paper-edge);
     border-radius: 4px;
-    box-shadow: 0 20px 50px -20px var(--shadow);
-    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.22,.61,.36,1);
-  }
-  .page-card[hidden]{ display: none; }
-  .page-card.leaving{
-    opacity: 0;
-    transform: translateX(-16px) rotate(-2deg);
-  }
-  .page-card.entering-start{
-    opacity: 0;
-    transform: translateX(16px) rotate(2deg) scale(0.98);
+    box-shadow: 0 16px 40px -18px var(--shadow);
+    transition: opacity 0.22s ease;
   }
 
-  .peek-tab{
+  .page-front{
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-back{
     position: absolute;
-    right: 22px;
-    bottom: -19px;
-    background: var(--paper);
-    border: 1px solid var(--paper-edge);
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-    padding: 8px 16px;
-    font-family: 'EB Garamond', Georgia, serif;
-    font-style: italic;
-    font-size: 12.5px;
-    letter-spacing: 0.03em;
-    color: var(--gold);
-    box-shadow: 0 6px 10px -4px rgba(0,0,0,0.18);
+    right: -11px;
+    bottom: -11px;
+    z-index: 1;
     cursor: pointer;
   }
-  .peek-tab-back{ right: auto; left: 22px; }
+
+  .pages.swap-fade .page-card{ opacity: 0; }
 
   .letter-paper{
-    width: 100%;
     padding: clamp(28px, 7vw, 56px) clamp(22px, 6vw, 48px) clamp(40px, 8vw, 56px);
   }
 
@@ -423,7 +409,7 @@
 
     <section class="letter-scene" id="letterScene">
       <div class="pages" id="pages">
-      <article class="letter-paper page-card" id="pageLetter">
+      <article class="letter-paper page-card page-front" id="pageLetter">
         <h1>Para o amor da minha vida</h1>
         <p class="letter-subtitle">24 anos</p>
 
@@ -440,11 +426,9 @@
         <p>Te amo minha futura esposa, vamos aproveitar a vida, porque o mundo é muito grande e vamos conhecer ele inteiro juntos.</p>
 
         <p class="signature">Com todo o meu amor,<br><span class="who">Nicholas</span></p>
-
-        <button class="peek-tab" id="peekToTicket" type="button">passagem &rarr;</button>
       </article>
 
-      <article class="boarding-pass page-card" id="pageTicket" hidden>
+      <article class="boarding-pass page-card page-back" id="pageTicket">
         <div class="bp-main">
           <div class="bp-header">
             <span class="bp-type">Cartão de Embarque</span>
@@ -476,8 +460,6 @@
           <div class="bp-barcode"></div>
         </div>
         <p class="bp-footnote">* nos termos do art. 256, &sect;4&ordm;, do CPC</p>
-
-        <button class="peek-tab peek-tab-back" id="peekToLetter" type="button">&larr; carta</button>
       </article>
       </div>
     </section>
@@ -504,24 +486,25 @@
     var pages = document.getElementById('pages');
     var pageLetter = document.getElementById('pageLetter');
     var pageTicket = document.getElementById('pageTicket');
-    var peekToTicket = document.getElementById('peekToTicket');
-    var peekToLetter = document.getElementById('peekToLetter');
 
-    function swapPages(hideEl, showEl){
+    function swapPages(){
       pages.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      hideEl.classList.add('leaving');
+      pages.classList.add('swap-fade');
       setTimeout(function(){
-        hideEl.hidden = true;
-        hideEl.classList.remove('leaving');
-        showEl.hidden = false;
-        showEl.classList.add('entering-start');
-        void showEl.offsetWidth;
-        showEl.classList.remove('entering-start');
-      }, 380);
+        pageLetter.classList.toggle('page-front');
+        pageLetter.classList.toggle('page-back');
+        pageTicket.classList.toggle('page-front');
+        pageTicket.classList.toggle('page-back');
+        void pages.offsetWidth;
+        pages.classList.remove('swap-fade');
+      }, 220);
     }
 
-    peekToTicket.addEventListener('click', function(){ swapPages(pageLetter, pageTicket); });
-    peekToLetter.addEventListener('click', function(){ swapPages(pageTicket, pageLetter); });
+    [pageLetter, pageTicket].forEach(function(el){
+      el.addEventListener('click', function(e){
+        if (el.classList.contains('page-back')) swapPages();
+      });
+    });
   })();
 </script>
 </body>
