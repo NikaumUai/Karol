@@ -227,7 +227,9 @@
     position: absolute;
     inset: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(24px, 6vw, 40px);
     padding: clamp(28px, 8vh, 64px) 18px 64px;
     opacity: 0;
     transform: scale(1.02);
@@ -294,73 +296,18 @@
     color: var(--wax);
   }
 
-  /* ---------- Ticket easter egg ---------- */
-  .ticket-trigger{
-    display: block;
-    margin: clamp(28px, 6vw, 40px) auto 0;
-    background: none;
-    border: 1px dashed var(--gold);
-    border-radius: 999px;
-    padding: 10px 22px;
-    font-family: 'EB Garamond', Georgia, serif;
-    font-style: italic;
-    font-size: clamp(14px, 3.6vw, 16px);
-    color: var(--gold);
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-  .ticket-trigger:hover{
-    background: var(--gold);
-    color: var(--paper);
-  }
-  .ticket-trigger-icon{ display: inline-block; transform: rotate(45deg); }
-
-  .ticket-overlay{
-    position: fixed;
-    inset: 0;
-    background: rgba(30, 22, 12, 0.55);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.35s ease;
-    z-index: 50;
-  }
-  .ticket-overlay.open{
-    opacity: 1;
-    pointer-events: auto;
-  }
-
+  /* ---------- Second page: the ticket ---------- */
   .boarding-pass{
-    position: relative;
-    width: min(400px, 100%);
+    max-width: 560px;
+    width: 100%;
     background: var(--paper);
-    border-radius: 12px;
-    box-shadow: 0 24px 60px -18px rgba(0,0,0,0.5);
-    transform: scale(0.92) translateY(12px);
-    transition: transform 0.4s cubic-bezier(.22,.61,.36,1);
+    border: 1px solid var(--paper-edge);
+    border-radius: 4px;
+    box-shadow: 0 20px 50px -20px var(--shadow);
     overflow: hidden;
   }
-  .ticket-overlay.open .boarding-pass{
-    transform: scale(1) translateY(0);
-  }
 
-  .ticket-close{
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 26px;
-    line-height: 1;
-    color: var(--ink-soft);
-    cursor: pointer;
-    padding: 8px;
-  }
-
-  .bp-main{ padding: clamp(24px, 6vw, 32px) clamp(22px, 6vw, 28px) clamp(16px, 4vw, 20px); }
+  .bp-main{ padding: clamp(28px, 7vw, 40px) clamp(22px, 6vw, 40px) clamp(20px, 5vw, 24px); }
 
   .bp-header{
     display: flex;
@@ -485,16 +432,9 @@
         <p>Te amo minha futura esposa, vamos aproveitar a vida, porque o mundo é muito grande e vamos conhecer ele inteiro juntos.</p>
 
         <p class="signature">Com todo o meu amor,<br><span class="who">Nicholas</span></p>
-
-        <button class="ticket-trigger" id="ticketTrigger" type="button">
-          <span class="ticket-trigger-icon">&#9992;</span> ver passagem
-        </button>
       </article>
-    </section>
 
-    <div class="ticket-overlay" id="ticketOverlay">
-      <div class="boarding-pass">
-        <button class="ticket-close" id="ticketClose" type="button" aria-label="Fechar">&times;</button>
+      <article class="boarding-pass">
         <div class="bp-main">
           <div class="bp-header">
             <span class="bp-airline">N&amp;K Airways</span>
@@ -528,8 +468,8 @@
           <div class="bp-barcode"></div>
         </div>
         <p class="bp-footnote">* nos termos do art. 256, &sect;4&ordm;, do CPC</p>
-      </div>
-    </div>
+      </article>
+    </section>
 
   </div>
 
@@ -548,20 +488,6 @@
       setTimeout(function(){ stage.classList.add('letter-rising'); }, 550);
       setTimeout(function(){ stage.classList.add('reveal-letter'); }, 1350);
       setTimeout(function(){ stage.classList.add('done'); }, 2300);
-    });
-
-    var ticketTrigger = document.getElementById('ticketTrigger');
-    var ticketOverlay = document.getElementById('ticketOverlay');
-    var ticketClose = document.getElementById('ticketClose');
-
-    ticketTrigger.addEventListener('click', function(){
-      ticketOverlay.classList.add('open');
-    });
-    ticketClose.addEventListener('click', function(){
-      ticketOverlay.classList.remove('open');
-    });
-    ticketOverlay.addEventListener('click', function(e){
-      if (e.target === ticketOverlay) ticketOverlay.classList.remove('open');
     });
   })();
 </script>
